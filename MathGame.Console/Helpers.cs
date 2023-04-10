@@ -14,4 +14,10 @@ internal class Helpers
         }
         return result;
     }
+
+    internal static int CovertStingToInt(string ?result)
+    {      
+        _ = Int32.TryParse(result, out int returnValue);
+        return returnValue;
+    }
 }
