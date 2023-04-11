@@ -4,9 +4,11 @@ using System;
 
 internal class Game
 {
-    private int MAX_RANGE = 100;
+    private readonly int MAX_RANGE = 100;
     private GameType Type { get; set; }
-    private string Prompt { get; set; }
+    private string Prompt { get; }
+
+    private int MAX_GUESS_RANGE => MAX_RANGE;
 
     public Game()
     {
@@ -23,7 +25,15 @@ internal class Game
         ";
     }
 
+    private void GetMenuChoice() 
+    {
+         throw new NotImplementedException();
+    }
 
+    private void PerformMath() 
+    {
+        throw new NotImplementedException();
+    }
 }
 
 internal enum GameType
