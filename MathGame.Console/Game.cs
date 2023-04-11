@@ -2,44 +2,69 @@
 
 using System;
 
-internal class Game
+public class Game
 {
-    private readonly int MAX_RANGE = 100;
+    private int Operator1 { get; set; }
+    private int Operator2 { get; set; }
     private GameType Type { get; set; }
     private string Prompt { get; }
-
-    private int MAX_GUESS_RANGE => MAX_RANGE;
-
-    public Game()
+    
+    public void ShowMenu()
     {
-        Prompt = $@"
-        Welcome to Math Game. This game will only use integers from 0 to 100
+        string prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
-            Select from one of the following operations to play:
-            A)ddition
-            S)ubtraction
-            M)ultiplication
-            D)ivision
+        A)dd two numbers
+        S)ubtract two numbers
+        M)ultiply two numbers
+        D)ivide two numbers
 
-         Select either (A/S/M/D)?       
+        Select your choice(A/S/M/D) ?
         ";
+
+        Console.WriteLine(prompt);
     }
 
-    private void GetMenuChoice() 
+    public void GetSelectedOperation()
     {
-         throw new NotImplementedException();
+        char key = Console.ReadKey(true).KeyChar;
+
+        switch(key)
+        {
+            case 'A':
+            case 'a':
+                Type = GameType.Addition;
+                FetchOperatorInput();
+                break;
+            case 'S':
+            case 's':
+                Type = GameType.Subtraction;
+                FetchOperatorInput();
+                break;
+            case 'M':
+            case 'm':
+                Type = GameType.Multiplication;
+                FetchOperatorInput();
+                break;
+            case 'D':
+            case 'd':
+                Type = GameType.Division;
+                FetchOperatorInput();
+                break;
+        }
+            
     }
 
-    private void PerformMath() 
+    private void FetchOperatorInput()
     {
         throw new NotImplementedException();
     }
 }
 
-internal enum GameType
-{
-    Addition,
-    Subtraction,
-    Multiplication,
-    Division
+    internal enum GameType
+    {
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division
+    }
 }
