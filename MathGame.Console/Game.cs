@@ -7,11 +7,11 @@ public class Game
     private int Operator1 { get; set; }
     private int Operator2 { get; set; }
     private GameType Type { get; set; }
-    private string Prompt { get; }
+    private string ?Prompt { get; }
     
     public void ShowMenu()
     {
-        string prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
+        string Prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
         A)dd two numbers
         S)ubtract two numbers
@@ -21,7 +21,7 @@ public class Game
         Select your choice(A/S/M/D) ?
         ";
 
-        Console.WriteLine(prompt);
+        Console.WriteLine(Prompt);
     }
 
     public void GetSelectedOperation()
