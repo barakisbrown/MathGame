@@ -31,11 +31,17 @@ public class Game
 
     public void BeginGame()
     {
-        
+        do
+        {
+            ShowMenu();
+            FetchMenuChoice();
+        } while (Type != GameType.Quit);
+
+        Console.WriteLine("Thank you for playing Math Game. Have a great day!");
     }
 
 
-    private void GetSelectedOperation()
+    private void FetchMenuChoice()
     {
         char key = Console.ReadKey(true).KeyChar;
 
@@ -44,41 +50,44 @@ public class Game
             case 'A':
             case 'a':
                 Type = GameType.Addition;
-                FetchOperatorInput('+');
+                PlayProblem();
                 break;
             case 'S':
             case 's':
                 Type = GameType.Subtraction;
-                FetchOperatorInput('-');
+                PlayProblem();
                 break;
             case 'M':
             case 'm':
                 Type = GameType.Multiplication;
-                FetchOperatorInput('*');
+                PlayProblem();
                 break;
             case 'D':
             case 'd':
                 Type = GameType.Division;
-                FetchOperatorInput('/');
+                PlayProblem();
                 break;
             case 'Q':
             case 'q':
-                Type = GameType.Quit;
-                FetchOperatorInput('l');
+                Type = GameType.Quit;               
                 break;
             case 'L':
             case 'l':
                 Type = GameType.ListGames;
-                FetchOperatorInput('q');
+                ListProblemsDone();
                 break;
         }
             
     }
 
-    private void FetchOperatorInput(char op)
+    private void ListProblemsDone()
     {
-        Console.Clear();
-        
+        throw new NotImplementedException();
+    }
+
+    private void PlayProblem()
+    {
+        throw new NotImplementedException();
     }
 
     private string GenerateEquation(char op)
