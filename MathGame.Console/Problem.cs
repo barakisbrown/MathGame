@@ -1,7 +1,4 @@
-﻿
-namespace MathGame.Console;
-
-
+﻿namespace MathGame.Console;
 
 internal class Problem
 {
