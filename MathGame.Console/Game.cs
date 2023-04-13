@@ -90,15 +90,32 @@ public class Game
         throw new NotImplementedException();
     }
 
-    private string GenerateEquation(char op)
+    private string GenerateEquation()
     {
         Operand1 = random.Next(0, MAXRANGE);  // X
         Operand2 = random.Next(0, MAXRANGE);  // Y
 
-        return string.Format("{0} {1} {2}", Operand1, op, Operand2);
+        char op = ' ';
+
+        switch (Type)
+        {
+            case GameType.Addition:
+                op = '+';
+                break;
+            case GameType.Subtraction:
+                op = '-';
+                break;
+            case GameType.Multiplication:
+                op = '*';
+                break;
+            case GameType.Division:
+                op = '/';
+                break;
+        }
+        // String => X OP Y -- X + Y --
+        return string.Format("{1} {2} {3}", Operand1, op, Operand2);        
     }
 }
-
     internal enum GameType
     {
         Addition,
