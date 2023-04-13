@@ -40,8 +40,7 @@ public class Game
             FetchMenuChoice();
             if (Type == GameType.ListGames)
                 ListProblemsDone();
-            else
-                PlayProblem();
+            PlayProblem();
         } while (Type != GameType.Quit);
 
         Console.WriteLine("Thank you for playing Math Game. Have a great day!");
