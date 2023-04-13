@@ -2,14 +2,17 @@
 
 using System;
 
+
 public class Game
 {
-    private int Operator1 { get; set; }
-    private int Operator2 { get; set; }
+    private int Operand1 { get; set; }
+    private int Operand2 { get; set; }
     private GameType Type { get; set; }
     private string ?Prompt { get; }
+    private readonly int MAXRANGE = 11;
+    private readonly Random random = new();
     
-    public void ShowMenu()
+    private void ShowMenu()
     {
         string Prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
@@ -26,7 +29,13 @@ public class Game
         Console.WriteLine(Prompt);
     }
 
-    public void GetSelectedOperation()
+    public void BeginGame()
+    {
+        
+    }
+
+
+    private void GetSelectedOperation()
     {
         char key = Console.ReadKey(true).KeyChar;
 
@@ -35,40 +44,49 @@ public class Game
             case 'A':
             case 'a':
                 Type = GameType.Addition;
-                FetchOperatorInput();
+                FetchOperatorInput('+');
                 break;
             case 'S':
             case 's':
                 Type = GameType.Subtraction;
-                FetchOperatorInput();
+                FetchOperatorInput('-');
                 break;
             case 'M':
             case 'm':
                 Type = GameType.Multiplication;
-                FetchOperatorInput();
+                FetchOperatorInput('*');
                 break;
             case 'D':
             case 'd':
                 Type = GameType.Division;
-                FetchOperatorInput();
+                FetchOperatorInput('/');
                 break;
             case 'Q':
             case 'q':
                 Type = GameType.Quit;
-                FetchOperatorInput();
+                FetchOperatorInput('l');
                 break;
             case 'L':
             case 'l':
                 Type = GameType.ListGames;
-                FetchOperatorInput();
+                FetchOperatorInput('q');
                 break;
         }
             
     }
 
-    private void FetchOperatorInput()
+    private void FetchOperatorInput(char op)
     {
+        Console.Clear();
         
+    }
+
+    private string GenerateEquation(char op)
+    {
+        Operand1 = random.Next(0, MAXRANGE);  // X
+        Operand2 = random.Next(0, MAXRANGE);  // Y
+
+        return string.Format("{0} {1} {2}", Operand1, op, Operand2);
     }
 }
 
@@ -81,4 +99,3 @@ public class Game
         ListGames,
         Quit
     }
-}
