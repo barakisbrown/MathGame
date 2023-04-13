@@ -1,10 +1,12 @@
 ﻿namespace MathGame.Console;
 
+using ConsoleTables;
 using System;
-
+using System.Reflection.Emit;
 
 public class Game
 {
+    private List<Problem> Problems { get; set; } = new();
     private int Operand1 { get; set; }
     private int Operand2 { get; set; }
     private GameType Type { get; set; }
@@ -80,12 +82,35 @@ public class Game
 
     private void ListProblemsDone()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("Listing Problems Completed Below");
+
+        if (Problems.Count == 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Currently no problems exist to be viewed currently.  Please do some and you will see them listed here.");
+        }
+        else
+        {
+            var table = new ConsoleTable("Problem", "User Guess", "Actual Answer", "Correct?", "Date");
+            foreach (var prob in Problems)
+            {
+                table.AddRow(prob.Equation, prob.UserAnswer, prob.ActualAnswer, prob.Correct, prob.Date);
+            }
+
+            table.Write(Format.Minimal);
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Press any key to return back to the menu");
+        Console.ReadKey();
+        Console.Clear();
+
     }
 
     private void PlayProblem()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Playing Problem Here");
     }
 
     private string GenerateEquation()
