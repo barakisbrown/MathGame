@@ -16,6 +16,7 @@ public class Game
     
     private void ShowMenu()
     {
+        Console.Clear();
         string Prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
         A)dd two numbers
@@ -39,7 +40,8 @@ public class Game
             FetchMenuChoice();
             if (Type == GameType.ListGames)
                 ListProblemsDone();
-            PlayProblem();
+            else
+                PlayProblem();
         } while (Type != GameType.Quit);
 
         Console.WriteLine("Thank you for playing Math Game. Have a great day!");
@@ -110,7 +112,10 @@ public class Game
 
     private void PlayProblem()
     {
+        Console.Clear();
+        // Console.WriteLine(Enum.GetName(Type));
         Console.WriteLine("Playing Problem Here");
+
     }
 
     private string GenerateEquation()
