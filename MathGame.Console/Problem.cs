@@ -6,4 +6,5 @@ internal class Problem
     public DateTime Date { get; set; }
     public int UserAnswer { get; set; }
     public int ActualAnswer { get; set; }
+    public bool Correct { get; set; }
 }
