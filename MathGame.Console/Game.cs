@@ -17,6 +17,8 @@ public class Game
         S)ubtract two numbers
         M)ultiply two numbers
         D)ivide two numbers
+        L)ist Games Played
+        Q)uit the game
 
         Select your choice(A/S/M/D) ?
         ";
@@ -50,13 +52,23 @@ public class Game
                 Type = GameType.Division;
                 FetchOperatorInput();
                 break;
+            case 'Q':
+            case 'q':
+                Type = GameType.Quit;
+                FetchOperatorInput();
+                break;
+            case 'L':
+            case 'l':
+                Type = GameType.ListGames;
+                FetchOperatorInput();
+                break;
         }
             
     }
 
     private void FetchOperatorInput()
     {
-        throw new NotImplementedException();
+        
     }
 }
 
@@ -65,6 +77,8 @@ public class Game
         Addition,
         Subtraction,
         Multiplication,
-        Division
+        Division,
+        ListGames,
+        Quit
     }
 }
