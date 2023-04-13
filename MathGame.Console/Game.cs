@@ -35,6 +35,9 @@ public class Game
         {
             ShowMenu();
             FetchMenuChoice();
+            if (Type == GameType.ListGames)
+                ListProblemsDone();
+            PlayProblem();
         } while (Type != GameType.Quit);
 
         Console.WriteLine("Thank you for playing Math Game. Have a great day!");
@@ -50,22 +53,18 @@ public class Game
             case 'A':
             case 'a':
                 Type = GameType.Addition;
-                PlayProblem();
                 break;
             case 'S':
             case 's':
                 Type = GameType.Subtraction;
-                PlayProblem();
                 break;
             case 'M':
             case 'm':
                 Type = GameType.Multiplication;
-                PlayProblem();
                 break;
             case 'D':
             case 'd':
-                Type = GameType.Division;
-                PlayProblem();
+                Type = GameType.Division;               
                 break;
             case 'Q':
             case 'q':
@@ -73,8 +72,7 @@ public class Game
                 break;
             case 'L':
             case 'l':
-                Type = GameType.ListGames;
-                ListProblemsDone();
+                Type = GameType.ListGames;             
                 break;
         }
             
