@@ -9,10 +9,10 @@ public class Calc
 
     public static int Multiply(int Operator1, int Operator2) => Operator1 * Operator2;
 
-    public static int? Division(int Dividend, int Divisor) 
+    public static int Division(int Dividend, int Divisor) 
     {
         if (Divisor == 0)
-            return null;
+            throw new DivideByZeroException();
         else
             return Dividend / Divisor;
     }
