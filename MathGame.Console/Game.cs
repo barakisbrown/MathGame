@@ -161,20 +161,22 @@ public class Game
 
             Console.WriteLine("Would you like another problem to test yourself further(y/n)");
 
+            // FIXED
+            Problem P = new()
+            {
+                Equation = problemString,
+                UserAnswer = UserAnswer,
+                ActualAnswer = ActualAnswer,
+                Correct = (ActualAnswer == UserAnswer),
+                Date = DateTime.Now
+            };
+            Problems.Add(P);
+
             char key = Console.ReadKey(true).KeyChar;
             switch (key)
             {
                 case 'Y':
-                case 'y':
-                    Problem P = new()
-                    {
-                        Equation = problemString,
-                        UserAnswer = UserAnswer,
-                        ActualAnswer = ActualAnswer,
-                        Correct = (ActualAnswer == UserAnswer),
-                        Date = DateTime.Now
-                    };
-                    Problems.Add(P);
+                case 'y':                    
                     break;
                 case 'N':
                 case 'n':
