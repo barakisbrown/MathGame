@@ -2,7 +2,6 @@
 
 using ConsoleTables;
 using System;
-using System.Reflection.Emit;
 
 public class Game
 {
@@ -15,8 +14,7 @@ public class Game
     private readonly Random random = new();
     
     private void ShowMenu()
-    {
-        Console.Clear();
+    {        
         string Prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
         A)dd two numbers
@@ -40,8 +38,11 @@ public class Game
             FetchMenuChoice();
             if (Type == GameType.ListGames)
                 ListProblemsDone();
-            PlayProblem();
-        } while (Type != GameType.Quit);
+            else if (Type == GameType.Quit)
+                break;
+            else
+                PlayProblem();
+        } while (true);
 
         Console.WriteLine("Thank you for playing Math Game. Have a great day!");
     }
@@ -85,6 +86,8 @@ public class Game
     {
         Console.Clear();
         Console.WriteLine("Listing Problems Completed Below");
+        Console.WriteLine($"Number of Records = {Problems.Count}");
+
 
         if (Problems.Count == 0)
         {
@@ -111,9 +114,75 @@ public class Game
 
     private void PlayProblem()
     {
-        Console.Clear();
-        // Console.WriteLine(Enum.GetName(Type));
-        Console.WriteLine("Playing Problem Here");
+        bool flag = true;
+        do
+        {
+            
+            Console.Clear();
+            Console.WriteLine($"The Current Problem Type is {Enum.GetName(Type)}");
+
+            string problemString = GenerateEquation();
+            Console.WriteLine(problemString);
+
+            int ActualAnswer = 0;
+            switch (Type)
+            {
+                case GameType.Addition:
+                    ActualAnswer = Calc.Add(Operand1, Operand2);
+                    break;
+                case GameType.Subtraction:
+                    ActualAnswer = Calc.Substract(Operand1, Operand2);
+                    break;
+                case GameType.Multiplication:
+                    ActualAnswer = Calc.Multiply(Operand1, Operand2);
+                    break;
+                case GameType.Division:
+                    try
+                    {
+                        ActualAnswer = Calc.Division(Operand1, Operand2);                     
+                    }
+                    catch (DivideByZeroException)
+                    {
+                        Console.WriteLine("Error:Divide by Zero");
+                        return;
+                    }
+                    break;
+            }
+
+            Console.Write("Guess : ");
+            string? guess = Console.ReadLine();
+            guess = Helpers.ValidateResult(guess, "Guess : ");
+            int UserAnswer = Helpers.CovertStingToInt(guess);
+
+            if (UserAnswer == ActualAnswer)
+                Console.WriteLine("Congrats.");
+            else
+                Console.WriteLine($"Wrong Answer. The actual answer is {ActualAnswer}");
+
+            Console.WriteLine("Would you like another problem to test yourself further(y/n)");
+
+            char key = Console.ReadKey(true).KeyChar;
+            switch (key)
+            {
+                case 'Y':
+                case 'y':
+                    Problem P = new()
+                    {
+                        Equation = problemString,
+                        UserAnswer = UserAnswer,
+                        ActualAnswer = ActualAnswer,
+                        Correct = (ActualAnswer == UserAnswer),
+                        Date = DateTime.Now
+                    };
+                    Problems.Add(P);
+                    break;
+                case 'N':
+                case 'n':
+                    flag = false;
+                    Console.Clear();
+                    break;
+            } 
+        } while (flag);
 
     }
 
@@ -137,10 +206,13 @@ public class Game
                 break;
             case GameType.Division:
                 op = '/';
+                // WIll not do undefined
+                if (Operand2 == 0)
+                    Operand2 = random.Next(1, MAXRANGE);
                 break;
         }
         // String => X OP Y -- X + Y --
-        return string.Format("{1} {2} {3}", Operand1, op, Operand2);        
+        return string.Format("{0} {1} {2}", Operand1, op, Operand2);        
     }
 }
     internal enum GameType
