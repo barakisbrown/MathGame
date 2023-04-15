@@ -121,7 +121,8 @@ public class Game
     {
         Console.Clear();
         Console.WriteLine("Listing Problems Completed Below");
-        Console.WriteLine($"Number of Records = {Problems.Count}");
+        Console.WriteLine($"Number of Problems Completed = {Problems.Count}");
+        Console.WriteLine();
 
 
         if (Problems.Count == 0)
