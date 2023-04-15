@@ -9,22 +9,23 @@ public class Game
     private int Operand1 { get; set; }
     private int Operand2 { get; set; }
     private GameType Type { get; set; }
-    private string ?Prompt { get; }
-    private readonly int MAXRANGE = 11;
+    private int MAXRANGE = (int)Difficulty_Modes.Beginner;
     private readonly Random random = new();
     
     private void ShowMenu()
     {        
-        string Prompt = @"Welcome to a game of math. All numbers need to be between 0 and 100.  Please select from one of the choices.
+        string Prompt = @"Welcome to MathGame. All numbers need to be between 0 and 100.  Please select from one of the choices.
 
         A)dd two numbers
         S)ubtract two numbers
         M)ultiply two numbers
         D)ivide two numbers
+        
         L)ist Games Played
+        X)tra Options
         Q)uit the game
 
-        Select your choice(A/S/M/D) ?
+        Select your choice(A/S/M/D/L/X/Q) ?
         ";
 
         Console.WriteLine(Prompt);
@@ -38,6 +39,8 @@ public class Game
             FetchMenuChoice();
             if (Type == GameType.ListGames)
                 ListProblemsDone();
+            else if (Type == GameType.Difficulty)
+                ChangeDifficultyLevel();
             else if (Type == GameType.Quit)
                 break;
             else
@@ -47,6 +50,35 @@ public class Game
         Console.WriteLine("Thank you for playing Math Game. Have a great day!");
     }
 
+    private void ChangeDifficultyLevel()
+    {
+        string ?Difficulty_Prompt = @"
+            Would you like to change the difficulty level?
+            1) Regular [All numbers will be less than 10][Default]
+            2) Moderate [All numbers will be less than 50]
+            3) Extreme [All numbers will be less than 100]
+
+            Select your option (1/2/3)?
+        ";
+
+        Console.Clear();
+        Console.WriteLine(Difficulty_Prompt);
+
+        char key = Console.ReadKey(true).KeyChar;
+        switch(key)
+        {
+            case '1':
+                MAXRANGE = (int)Difficulty_Modes.Beginner;
+                break;
+            case '2':
+                MAXRANGE = (int)Difficulty_Modes.Advanced;
+                break;
+            case '3':
+                MAXRANGE = (int)Difficulty_Modes.Expert;
+                break;
+        }
+        Console.Clear();
+    }
 
     private void FetchMenuChoice()
     {
@@ -78,8 +110,11 @@ public class Game
             case 'l':
                 Type = GameType.ListGames;             
                 break;
-        }
-            
+            case 'X':
+            case 'x':
+                Type = GameType.Difficulty;
+                break;
+        }            
     }
 
     private void ListProblemsDone()
@@ -109,7 +144,6 @@ public class Game
         Console.WriteLine("Press any key to return back to the menu");
         Console.ReadKey();
         Console.Clear();
-
     }
 
     private void PlayProblem()
@@ -217,12 +251,21 @@ public class Game
         return string.Format("{0} {1} {2}", Operand1, op, Operand2);        
     }
 }
-    internal enum GameType
-    {
-        Addition,
-        Subtraction,
-        Multiplication,
-        Division,
-        ListGames,
-        Quit
-    }
+
+internal enum GameType
+{
+    Addition,
+    Subtraction,
+    Multiplication,
+    Division,
+    ListGames,
+    Difficulty,
+    Quit
+}
+
+internal enum Difficulty_Modes
+{
+    Beginner = 11,
+    Advanced = 51,
+    Expert = 101
+}
